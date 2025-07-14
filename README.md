@@ -1,4 +1,4 @@
-# Drominator - Drone Delivery Prediction System 🚀
+# DroneSense.AI - Drone Delivery Prediction System 🚀
 
 ## Project Overview
 
