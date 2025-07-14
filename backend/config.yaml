@@ -1,0 +1,3 @@
+drone:
+  max_altitude: 100  # meters
+  max_speed: 5      # m/s
