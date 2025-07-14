@@ -97,10 +97,13 @@ export function LandingPage() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <video className="w-full h-full object-cover rounded-2xl" controls autoPlay loop muted playsInline>
-            <source src="/videos/hello.mp4" type="video/quicktime" />
-            Your browser does not support the video tag.
-          </video>
+          <Image
+            src="/images/drone_land.png" // Using the new placeholder image
+            alt="Drone Delivery Demo"
+            width={960} // Adjust width/height as needed for your image aspect ratio
+            height={540}
+            className="w-full h-full object-cover rounded-2xl cool-shadow"
+          />
         </div>
       </section>
 
