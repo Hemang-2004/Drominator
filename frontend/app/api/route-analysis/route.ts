@@ -23,8 +23,12 @@ export async function POST(request: NextRequest) {
     const destinationLower = destination.toLowerCase()
 
     let analysis: any = {}
-    const simulatedDistance = (Math.random() * 17 + 9).toFixed(1) // Simulate distance from 9 to 26 km
-    const isProfitable = Number.parseFloat(simulatedDistance) < 5 ? "Profitable" : "Break-even"
+
+    // Generate new distance values as requested
+    const airDistanceKm = Math.floor(Math.random() * (9 - 7 + 1)) + 7 // Random integer between 7 and 9 km
+    const roadDistanceKm = (Math.random() * (26 - 16) + 16).toFixed(1) // Random number between 16 and 26 km
+
+    let profitabilityStatus = "N/A"
     const randomDroneType = droneTypes[Math.floor(Math.random() * droneTypes.length)].name
     const randomElevation = (Math.random() * 100 + 400).toFixed(0) + "m" // 400-500m
 
@@ -36,30 +40,38 @@ export async function POST(request: NextRequest) {
         (warehouseLower.includes("bandra east") && destinationLower.includes("trombay")) ||
         (warehouseLower.includes("trombay") && destinationLower.includes("bandra east"))
       ) {
+        profitabilityStatus = "Loss"
         analysis = {
           feasible: false,
           deliveryMode: "bike-only", // Bike only
-          distance: simulatedDistance,
           estimatedTime: (Math.random() * 15 + 5).toFixed(0),
-          profitability: "Loss", // No drones, so loss
+          profitability: profitabilityStatus,
           riskLevel: "High",
           isNoFlyZone: true,
           averageDroneHeight: null, // No drone
           droneType: null, // No drone
+          airDistanceKm: airDistanceKm,
+          roadDistanceKm: roadDistanceKm,
         }
       } else {
         // Mumbai - Drone allowed for other permutations
-        const isMixedDelivery = Math.random() > 0.5 // 50% chance for mixed
+        const distanceDifference = Math.abs(Number.parseFloat(roadDistanceKm) - airDistanceKm)
+        if (distanceDifference < 8) {
+          profitabilityStatus = "Break-even"
+        } else {
+          profitabilityStatus = "Profitable"
+        }
         analysis = {
           feasible: true,
-          deliveryMode: isMixedDelivery ? "mixed" : "drone-only",
-          distance: simulatedDistance,
+          deliveryMode: Math.random() > 0.5 ? "mixed" : "drone-only", // 50% chance for mixed
           estimatedTime: (Math.random() * 25 + 10).toFixed(0),
-          profitability: isProfitable,
+          profitability: profitabilityStatus,
           riskLevel: "Low",
           isNoFlyZone: false,
           averageDroneHeight: randomElevation,
           droneType: randomDroneType,
+          airDistanceKm: airDistanceKm,
+          roadDistanceKm: roadDistanceKm,
         }
       }
     } else if (selectedCity === "bangalore") {
@@ -69,45 +81,61 @@ export async function POST(request: NextRequest) {
         (warehouseLower.includes("yelanka") && destinationLower.includes("jokur")) ||
         (warehouseLower.includes("jokur") && destinationLower.includes("yelanka"))
       ) {
+        profitabilityStatus = "Loss"
         analysis = {
           feasible: false,
           deliveryMode: "bike-only", // Bike only
-          distance: simulatedDistance,
           estimatedTime: (Math.random() * 15 + 5).toFixed(0),
-          profitability: "Loss",
+          profitability: profitabilityStatus,
           riskLevel: "High",
           isNoFlyZone: true,
           averageDroneHeight: null,
           droneType: null,
+          airDistanceKm: airDistanceKm,
+          roadDistanceKm: roadDistanceKm,
         }
       } else {
         // Bangalore - Drone allowed for other permutations
-        const isMixedDelivery = Math.random() > 0.5 // 50% chance for mixed
+        const distanceDifference = Math.abs(Number.parseFloat(roadDistanceKm) - airDistanceKm)
+        if (distanceDifference < 8) {
+          profitabilityStatus = "Break-even"
+        } else {
+          profitabilityStatus = "Profitable"
+        }
         analysis = {
           feasible: true,
-          deliveryMode: isMixedDelivery ? "mixed" : "drone-only",
-          distance: simulatedDistance,
+          deliveryMode: Math.random() > 0.5 ? "mixed" : "drone-only", // 50% chance for mixed
           estimatedTime: (Math.random() * 25 + 10).toFixed(0),
-          profitability: isProfitable,
+          profitability: profitabilityStatus,
           riskLevel: "Low",
           isNoFlyZone: false,
           averageDroneHeight: randomElevation,
           droneType: randomDroneType,
+          airDistanceKm: airDistanceKm,
+          roadDistanceKm: roadDistanceKm,
         }
       }
     } else {
       // Default logic for other cities or unhandled permutations
+      const distanceDifference = Math.abs(Number.parseFloat(roadDistanceKm) - airDistanceKm)
+      if (distanceDifference < 8) {
+        profitabilityStatus = "Break-even"
+      } else {
+        profitabilityStatus = "Profitable"
+      }
+
       const isMixedDelivery = Math.random() > 0.5 // 50% chance for mixed
       analysis = {
         feasible: Math.random() > 0.2, // Still some chance of not feasible
         deliveryMode: isMixedDelivery ? "mixed" : parameters.weather === "Rainy" ? "bike-only" : "drone-only", // Prioritize bike if rainy
-        distance: simulatedDistance,
         estimatedTime: (Math.random() * 30 + 10).toFixed(0),
-        profitability: isProfitable,
+        profitability: profitabilityStatus,
         riskLevel: assessRisk(parameters),
         isNoFlyZone: parameters.weather === "Rainy", // Consider rainy as a soft no-fly for drones
         averageDroneHeight: randomElevation,
         droneType: randomDroneType,
+        airDistanceKm: airDistanceKm,
+        roadDistanceKm: roadDistanceKm,
       }
       // If deliveryMode is bike-only due to rain, override feasible and profitability
       if (analysis.deliveryMode === "bike-only" && analysis.isNoFlyZone) {

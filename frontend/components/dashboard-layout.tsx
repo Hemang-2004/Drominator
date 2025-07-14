@@ -61,7 +61,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         {/* Sidebar Header */}
         <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200 bg-white">
           <Link href="/" className="flex items-center">
-            <WalmartLogo width={100} height={50} className="hover:opacity-80 transition-opacity" />
+            <WalmartLogo width={140} height={100} className="hover:opacity-80 transition-opacity" />
           </Link>
           <Button variant="ghost" size="sm" onClick={() => setSidebarOpen(false)}>
             <X className="h-5 w-5" />

@@ -41,7 +41,7 @@ export function AuthPage() {
         {/* Header */}
         <div className="text-center mb-6 sm:mb-8">
           <div className="flex items-center justify-center mb-3 sm:mb-4">
-            <WalmartLogo width={140} height={70} className="hover:opacity-80 transition-opacity" />
+            <WalmartLogo width={140} height={100} className="hover:opacity-80 transition-opacity" />
           </div>
           <p className="text-blue-100 font-syabil text-sm sm:text-base">Secure Employee Access Portal</p>
         </div>

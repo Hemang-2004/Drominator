@@ -12,7 +12,7 @@ export function LandingPage() {
       {/* Header */}
       <header className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 flex items-center justify-between">
         <Link href="/" className="flex items-center">
-          <WalmartLogo width={140} height={70} className="hover:opacity-80 transition-opacity" />
+          <WalmartLogo width={140} height={100} className="hover:opacity-80 transition-opacity" />
         </Link>
         <Link href="/auth">
           <Button
@@ -129,7 +129,7 @@ export function LandingPage() {
       <footer className="bg-gray-900 text-white py-8 sm:py-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center mb-6 sm:mb-8">
-            <WalmartLogo width={140} height={70} className="filter brightness-0 invert" />
+            <WalmartLogo width={140} height={100} className="filter brightness-0 invert" />
           </div>
           <p className="text-center text-gray-400 font-syabil text-sm sm:text-base">
             © 2024 Walmart Inc. All rights reserved. Drone Delivery Intelligence Platform
