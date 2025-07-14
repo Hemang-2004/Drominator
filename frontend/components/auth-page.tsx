@@ -107,7 +107,7 @@ export function AuthPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-employee-id" className="font-syabil">
-                    Walmart Employee Number
+                     Employee Number
                   </Label>
                   <Input id="signup-employee-id" placeholder="WMT123456" className="h-10 sm:h-12 font-syabil" />
                 </div>
