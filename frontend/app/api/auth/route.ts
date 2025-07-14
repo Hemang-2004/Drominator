@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
           success: true,
           user: {
             id: "1",
-            name: "John Doe",
+            name: "Anantha Krishna",
             email,
             employeeNumber,
             role: "analyst",

@@ -92,7 +92,7 @@ export function AuthPage() {
                   <Label htmlFor="name" className="font-syabil">
                     Full Name
                   </Label>
-                  <Input id="name" placeholder="John Doe" className="h-10 sm:h-12 font-syabil" />
+                  <Input id="name" placeholder="AnanthaKrishna" className="h-10 sm:h-12 font-syabil" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-email" className="font-syabil">
